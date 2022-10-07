@@ -1,0 +1,1 @@
+I could not figure out how to assign the return value to an HTML form element with an ID
