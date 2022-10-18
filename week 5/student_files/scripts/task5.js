@@ -71,37 +71,73 @@ var templeList = []
 // Step 2: Declare a function named output that accepts a list of temples as an array argument and does the following for each temple:
 function output(temples)
 {
-    // - Creates an HTML <article> element
-    // - Creates an HTML <h3> element and add the temple's templeName property to it
-    // - Creates an HTML <h4> element and add the temple's location property to it
-    // - Creates an HTML <h4> element and add the temple's dedicated property to it
-    // - Creates an HTML <img> element and add the temple's imageUrl property to the src attribute and the temple's templeName property to the alt attribute
-    // - Appends the <h3> element, the two <h4> elements, and the <img> element to the <article> element as children
-    // - Appends the <article> element to the HTML element with an ID of temples
+    for (i = 0 ; i >= temples/length() ; i += 1)
+    {
+        // - Creates an HTML <article> element
+        var article = document.createElement("ARTICLE")
 
+        // - Creates an HTML <h3> element and add the temple's templeName property to it
+        var h3 = document.createElement("h3")
+        h3 = temples[i]["templeName"]
+
+        // - Creates an HTML <h4> element and add the temple's location property to it
+        var h4_1 = document.createElement("h4")
+        h4_1 = temples[i]["location"]
+
+        // - Creates an HTML <h4> element and add the temple's dedicated property to it
+        var h4_2 = document.createElement("h4")
+        h4_2 = temples[i]["dedicated"]
+
+        // - Creates an HTML <img> element and add the temple's imageUrl property to the src attribute and the temple's templeName property to the alt attribute
+        var img = document.createElement("img")
+        img.src = temples[i]["imageUrl"]
+        img.alt = temples[i]["templeName"]
+
+        // - Appends the <h3> element, the two <h4> elements, and the <img> element to the <article> element as children
+        article.appendChild(h3)
+        article.appendChild(h4_1)
+        article.appendChild(h4_2)
+        article.appendChild(img)
+
+        // - Appends the <article> element to the HTML element with an ID of temples
+        document.querySelector("#temples").append = article
+    }
 }
 
 // Step 3: Create another function called getTemples. Make it an async function.
 async function getTemples()
 {
-// Step 4: In the function, using the built-in fetch method, call this absolute URL: 'https://byui-cse.github.io/cse121b-course/week05/temples.json'. Create a variable to hold the response from your fetch. You should have the program wait on this line until it finishes.
+    // Step 4: In the function, using the built-in fetch method, call this absolute URL: 'https://byui-cse.github.io/cse121b-course/week05/temples.json'. Create a variable to hold the response from your fetch. You should have the program wait on this line until it finishes.
+    var templesfile = await fetch("https://byui-cse.github.io/cse121b-course/week05/temples.json")
 
+    // Step 5: Convert your fetch response into a Javascript object ( hint: .json() ). Store this in the templeList variable you declared earlier (Step 1). Make sure the the execution of the code waits here as well until it finishes.
+    templeList = await templesfile.json
 
-// Step 5: Convert your fetch response into a Javascript object ( hint: .json() ). Store this in the templeList variable you declared earlier (Step 1). Make sure the the execution of the code waits here as well until it finishes.
-
-
-// Step 6: Finally, call the output function and pass it the list of temples. Execute your getTemples function to make sure it works correctly.
-
+    // Step 6: Finally, call the output function and pass it the list of temples. Execute your getTemples function to make sure it works correctly.
+    output(templeList)
 }
 
 // Step 7: Declare a function named reset that clears all of the <article> elements from the HTML element with an ID of temples
+function reset()
+{
+    document.querySelector("#temples").remove = article
+}
 
 // Step 8: Declare a function named sortBy that does the following:
-// - Calls the reset function
-// - Sorts the global temple list by the currently selected value of the HTML element with an ID of sortBy
-// - Calls the output function passing in the sorted list of temples
+function sortBy()
+{
+    // - Calls the reset function
+    reset()
+    
+    // - Sorts the global temple list by the currently selected value of the HTML element with an ID of sortBy
+    
+    
+    // - Calls the output function passing in the sorted list of temples
+    output(templeList)
+}
 
 // Step 9: Add a change event listener to the HTML element with an ID of sortBy that calls the sortBy function
+document.getElementById("sortBy").addEventListener("click", sortby())
 
 /* STRETCH */
 
