@@ -144,7 +144,7 @@ function sortBy()
 }
 
 // Step 9: Add a change event listener to the HTML element with an ID of sortBy that calls the sortBy function
-document.getElementById("sortBy").addEventListener("click", sortby())
+document.getElementById("sortBy").addEventListener("change", sortby())
 
 /* STRETCH */
 
