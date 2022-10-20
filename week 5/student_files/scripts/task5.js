@@ -130,7 +130,14 @@ function sortBy()
     reset()
     
     // - Sorts the global temple list by the currently selected value of the HTML element with an ID of sortBy
-    
+    if (document.querySelector("#sortBy") == "templeNameAscending")
+    {
+        templeList = templeList.sort()
+    }
+    else
+    {
+        templeList = templeList.sort().reverse()
+    }
     
     // - Calls the output function passing in the sorted list of temples
     output(templeList)
