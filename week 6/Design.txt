@@ -1,18 +1,22 @@
 Title:
-    Countdown to christmas
+    Countdown to teh next marvel movie
 
 Author(s):
     Jacob
 
 Steps:
-    1   create a global variable to store date and time of christmas
-    2   create a function that will repeat once every second
+    1   load an api for marvel movies that haven't come out yet
+    2   create a global array to store date and time of every marvel movie that is going to come out
+    3   create a function that will repeat once every second
         a   create a variable to store current date and time
         b   calculate the difference between the two dates
         c   return nothing
-    3   create a function to calculate difference between two dates and times
+    4   create a function to calculate difference between two dates and times
         a   find the difference in time
         b   find the difference between the dates
         c   store both in an array
         d   return the array
-    4   run the function from step 2
+    5   create a function to figure out which marvel movie is next
+        a   compare the current date against each marvel movie coming up
+        b   return the one that is the closest without going over
+    6   run the function from step 3
