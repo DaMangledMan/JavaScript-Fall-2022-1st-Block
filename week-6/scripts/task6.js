@@ -1,23 +1,23 @@
 
-// create a global variable to store date and time of christmas
-var marvel_date_time = new Array()
+// create a global letiable to store date and time of christmas
+const marvel_date_time = formatter()
 
-var dt = new Date()
+const dt = new Date()
 
 // create a function that will repeat once every second
-function repeat()
+function main()
 {
     while (true)
     {
         setTimeout(function(){
-            //   create a variable to store current date and time
-            var current_year = dt.getFullYear()
-            var current_month = dt.getMonth()
-            var current_date = dt.getDate()
-            var current_time = dt.getTime()
-            var current_date_time = [current_year, current_month, current_date, current_time]
+            //   create a letiable to store current date and time
+            let current_year = dt.getFullYear()
+            let current_month = dt.getMonth()
+            let current_date = dt.getDate()
+            let current_time = dt.getTime()
+            let current_date_time = [current_year, current_month, current_date, current_time]
             //   finds the closest marvel movie
-            var closest = find_closest(marvel_date_time, current_date_time)
+            let closest = find_closest(marvel_date_time, current_date_time)
             //   edits element id nextMovie to closest[0]
             document.querySelector("#nextMovie").innerHTML = closest[0]
             //   formats closest for the find difference function
@@ -36,15 +36,15 @@ function repeat()
 function find_difference(date1, date2)
 {
     //   find the difference in time
-    var time_diff = Math.abs(date1[4] - date2[4])
+    let time_diff = Math.abs(date1[4] - date2[4])
     //   find the difference between the dates
-    var date_diff = Math.abs(date1[3] - date2[3])
+    let date_diff = Math.abs(date1[3] - date2[3])
     //   find the difference between the months
-    var month_diff = Math.abs(date1[2] - date2[2])
+    let month_diff = Math.abs(date1[2] - date2[2])
     //   find the difference between the years
-    var year_diff = Math.abs(date1[1] - date2[1])
+    let year_diff = Math.abs(date1[1] - date2[1])
     //   store them in an array
-    var full_difference = [year_diff, month_diff, date_diff, time_diff]
+    let full_difference = [year_diff, month_diff, date_diff, time_diff]
     //   return the array
     return full_difference
 }
@@ -81,7 +81,19 @@ function find_closest(marvel_list, current_date)
 
 // create a function to open the api and format the information 
 //   array formatted as [["movie_name", year#, month#, day#, time], ... ]
-function formatter()
+async function formatter()
 {
-
+    // Loads the json data file containing all known upcoming marvel movies as of 10/24/2022
+    let marvel_movie_file = await fetch("week-6/data/marvel.json")
+    // converts it to a usabole format
+    let marvel_movie_object = JSON.parse(marvel_movie_file)
+    // creates a list to store the values of each key in the json
+    let marvel_movie_list = []
+    // adds all values to the list in order
+    for (let key in marvel_movie_object)
+    {
+        marvel_movie_list.push(marvel_movie_object[key])
+    }
+    // returns the list of values
+    return marvel_movie_list
 }
