@@ -1,99 +1,172 @@
 
-// create a global letiable to store date and time of christmas
-const marvel_date_time = formatter()
 
-const dt = new Date()
+// converts it to a usabole format
+let object = JSON.parse("data/marvel.json")
 
-// create a function that will repeat once every second
-function main()
+document.getElementById("test2").innerHTML = object
+
+// creates a list to store the values of each key in the json
+let list = []
+// adds all values to the list in order
+for (let key in object)
 {
-    while (true)
-    {
-        setTimeout(function(){
-            //   create a letiable to store current date and time
-            let current_year = dt.getFullYear()
-            let current_month = dt.getMonth()
-            let current_date = dt.getDate()
-            let current_time = dt.getTime()
-            let current_date_time = [current_year, current_month, current_date, current_time]
-            //   finds the closest marvel movie
-            let closest = find_closest(marvel_date_time, current_date_time)
-            //   edits element id nextMovie to closest[0]
-            document.querySelector("#nextMovie").innerHTML = closest[0]
-            //   formats closest for the find difference function
-            closest.shift()
-            //   calculate the difference between the two dates
-            time_till_next = find_difference(current_date_time, closest)
-            //   edits element id timeTillNext to time_till_next
-            document.querySelector("#timeTillNext").innerHTML = time_till_next
-        }, 1000)
-        //   return nothing
+    list.push(object[key])
+}
+
+document.getElementById("test3").innerHTML = list
+
+
+
+
+// create a global array to store date and time of all marvel names/release dates
+
+marvel_list = list
+
+/*[
+    [
+        "Black Panther: Wakanda Forever",
+        "11/11/2022"
+    ],
+    [
+        "Kraven the Hunter",
+        "01/13/2023"
+    ],
+    [
+        "Ant-Man and the Wasp: Quantumania",
+        "02/17/2023"
+    ],
+    [
+        "Guardians of the Galaxy Vol. 3",
+        "05/05/2023"
+    ],
+    [
+        "Spider-Man: Across the Spider-Verse",
+        "06/02/2023"
+    ],
+    [
+        "The Marvels",
+        "07/28/2023"
+    ],
+    [
+        "Madame Web",
+        "02/02/2024"
+    ],
+    [
+        "Spider-Man: Across the Spider-Verse (Part Two)",
+        "03/29/2024"
+    ],
+    [
+        "Captain America: New World Order",
+        "05/03/2024"
+    ],
+    [
+        "Thunderbolts",
+        "07/26/2024"
+    ],
+    [
+        "Blade",
+        "09/06/2024"
+    ],
+    [
+        "Deadpool 3",
+        "11/08/2024"
+    ],
+    [
+        "Fantastic Four",
+        "02/14/2025"
+    ],
+    [
+        "The Kang Dynasty",
+        "05/02/2025"
+    ],
+    [
+        "Secret Wars",
+        "05/01/2026"
+    ]
+]*/
+
+
+
+
+
+//   finds the closest marvel movie and its release date
+let closest_index = find_closest(marvel_list)
+let closest_date = marvel_list[closest_index][1]
+let closest_movie = marvel_list[closest_index][0]
+
+
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+
+    document.getElementById("nextMovie").innerHTML = closest_movie
+    var countDownDate = new Date(closest_date).getTime();
+
+    let time_till = find_difference(countDownDate)
+
+    // Display the result in the element with id="demo"
+    document.getElementById("timeTillNext").innerHTML = time_till;
+
+    // If the count down is finished, write some text
+    if (time_till < 0) {
+        clearInterval(x);
+        document.getElementById("timeTillNext").innerHTML = "EXPIRED";
     }
+}, 1000);
+
+
+
+
+// create a function to open the json and format the information 
+async function formatter(json)
+{
+    
+    
+    // returns the list of values
+    return marvel_movie_list
+}
+
+
+
+// create a function to figure out which marvel movie is next
+function find_closest(marvel_list)
+{
+    // gets time now
+    let now = new Date().getTime()
+
+    // compare the current date against each marvel movie coming up
+    for (let i in marvel_list)
+    {
+        let marvel_date = new Date(marvel_list[i][1]).getTime()
+
+        // compares the two dates
+        if (marvel_date > now)
+        {
+            return i
+        }
+
+
+    }
+    // if all movies have passed returns a sorry message
+    return []
 }
 
 
 // create a function to calculate difference between two dates and times
-function find_difference(date1, date2)
+function find_difference(marvel_date)
 {
-    //   find the difference in time
-    let time_diff = Math.abs(date1[4] - date2[4])
-    //   find the difference between the dates
-    let date_diff = Math.abs(date1[3] - date2[3])
-    //   find the difference between the months
-    let month_diff = Math.abs(date1[2] - date2[2])
-    //   find the difference between the years
-    let year_diff = Math.abs(date1[1] - date2[1])
-    //   store them in an array
-    let full_difference = [year_diff, month_diff, date_diff, time_diff]
-    //   return the array
-    return full_difference
+    // gets time now
+    let now = new Date().getTime()
+    // finds the difference between a date and now
+    const distance = marvel_date - now
+    // calculates the days, hours, minutes, and seconds
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24))
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000)
+    // returns the exact distance till the marvel movie
+    return days + "d " + hours + "h " + minutes + "m " + seconds + "s "
 }
 
 
-// create a function to figure out which marvel movie is next
-function find_closest(marvel_list, current_date)
-{
-    //   compare the current date against each marvel movie coming up
-    for (i = 0; i >= marvel_list.length; i += 0)
-    {
-        // compares year
-        if (current_date[0] < marvel_list[i][1])
-        {
-            // compares month
-            if (current_date[1] < marvel_list[i][2])
-            {
-                // compares date
-                if (current_date[2] < marvel_list[i][3])
-                {
-                    // compares time
-                    if (current_date[3] < marvel_list[i][4])
-                    {
-                        // return the one that is the closest without going over
-                        return marvel_list[i]
-                    }
-                }
-            }
-        }
-    }
-    // if all movies have passed returns a sorry message
-    return ["there are no more marvel movies", current_date[0], current_date[1], current_date[2], current_date[3]]
-}
-
-// create a function to open the api and format the information 
-//   array formatted as [["movie_name", year#, month#, day#, time], ... ]
-async function formatter()
-{
-    // Loads the json data file containing all known upcoming marvel movies as of 10/24/2022
-    let marvel_movie_file = await fetch("week-6/data/marvel.json")
-    // converts it to a usabole format
-    let marvel_movie_object = JSON.parse(marvel_movie_file)
-    // creates a list to store the values of each key in the json
-    let marvel_movie_list = []
-    // adds all values to the list in order
-    for (let key in marvel_movie_object)
-    {
-        marvel_movie_list.push(marvel_movie_object[key])
-    }
-    // returns the list of values
-    return marvel_movie_list
-}
