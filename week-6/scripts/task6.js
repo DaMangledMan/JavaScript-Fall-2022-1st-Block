@@ -5,9 +5,9 @@ let json_ = fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block
 
 document.getElementById("test1").innerHTML = "1 " + json_;
 
-let stringed = JSON.stringify(json_)
+let list = json_["array"]
 
-document.getElementById("test2").innerHTML = "2 " + stringed;
+document.getElementById("test2").innerHTML = "2 " + list;
 
 let marvel_list = JSON.parse(stringed)
 
