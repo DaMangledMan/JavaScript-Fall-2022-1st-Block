@@ -1,19 +1,26 @@
 
 
-// converts it to a usabole format
-let object = JSON.parse("data/marvel.json")
+let json = fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json")
 
-document.getElementById("test2").innerHTML = object
+console.log(json)
+
+document.getElementById("test1").innerHTML = "1 " + json
+
+
+// converts it to a usabole format
+
+
+document.getElementById("test2").innerHTML = "2 " + ""
 
 // creates a list to store the values of each key in the json
 let list = []
 // adds all values to the list in order
-for (let key in object)
+for (let key in json)
 {
-    list.push(object[key])
+    list.push(json[key])
 }
 
-document.getElementById("test3").innerHTML = list
+document.getElementById("test3").innerHTML = "3 " + list
 
 
 
