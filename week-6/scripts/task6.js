@@ -1,23 +1,10 @@
 
 // create a global array to store date and time of all marvel names/release dates
 
-    let json_ = fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json").
 
-    json_.then(function(result){
-        document.getElementById("test1").innerHTML = "1 " + result;
+main()
 
-    })
-    // document.getElementById("test1").innerHTML = "1 " + json_;
 
-    let list = json_["array"]
-
-    document.getElementById("test2").innerHTML = "2 " + list;
-
-/*
-let marvel_list = JSON.parse(stringed)
-
-document.getElementById("test3").innerHTML = "3 " + marvel_list;
-*/
 
 /*[
     [
@@ -87,27 +74,38 @@ document.getElementById("test3").innerHTML = "3 " + marvel_list;
 
 
 //   finds the closest marvel movie and its release date
-let closest_index = find_closest(marvel_list)
-let closest_date = marvel_list[closest_index][1]
-let closest_movie = marvel_list[closest_index][0]
 
 
+async function main()
+{
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+    let json_ = await fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json").
+
+    document.getElementById("test1").innerHTML = "1" + json_
+    
+    let marvel_list = json_["array"]
+
+    document.getElementById("test2").innerHTML = "2" + marvel_list
+
+    let closest_index = find_closest(marvel_list)
+    let closest_date = marvel_list[closest_index][1]
+    let closest_movie = marvel_list[closest_index][0]
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
 
 
-    document.getElementById("nextMovie").innerHTML = closest_movie
-    let release_date = new Date(closest_date).getTime()
+        document.getElementById("nextMovie").innerHTML = closest_movie
+        let release_date = new Date(closest_date).getTime()
 
-    let time_till = find_difference(release_date)
+        let time_till = find_difference(release_date)
 
-    // Display the result in the element with id="demo"
-    document.getElementById("timeTillNext").innerHTML = time_till
+        // Display the result in the element with id="demo"
+        document.getElementById("timeTillNext").innerHTML = time_till
 
-}, 1000);
+    }, 1000);
 
-
+}
 // create a function to figure out which marvel movie is next
 function find_closest(marvel_list)
 {
