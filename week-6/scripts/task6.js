@@ -13,14 +13,13 @@ async function main()
     let marvel_list = file["array"]
 
 
-
-    let closest_index = find_closest(marvel_list)
-    let closest_date = marvel_list[closest_index][1]
-    let closest_movie = marvel_list[closest_index][0]
-
     // Update the count down every 1 second
     var x = setInterval(function() {
 
+        let closest_index = find_closest(marvel_list)
+        let closest_date = marvel_list[closest_index][1]
+        let closest_movie = marvel_list[closest_index][0]
+    
 
         document.getElementById("nextMovie").innerHTML = closest_movie
         let release_date = new Date(closest_date).getTime()
@@ -33,6 +32,9 @@ async function main()
     }, 1000);
 
 }
+
+
+
 // create a function to figure out which marvel movie is next
 function find_closest(marvel_list)
 {
