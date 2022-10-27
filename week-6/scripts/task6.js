@@ -1,91 +1,18 @@
 
-// create a global array to store date and time of all marvel names/release dates
-
 
 main()
-
-
-
-/*[
-    [
-        "Black Panther: Wakanda Forever",
-        "11/11/2022"
-    ],
-    [
-        "Kraven the Hunter",
-        "01/13/2023"
-    ],
-    [
-        "Ant-Man and the Wasp: Quantumania",
-        "02/17/2023"
-    ],
-    [
-        "Guardians of the Galaxy Vol. 3",
-        "05/05/2023"
-    ],
-    [
-        "Spider-Man: Across the Spider-Verse",
-        "06/02/2023"
-    ],
-    [
-        "The Marvels",
-        "07/28/2023"
-    ],
-    [
-        "Madame Web",
-        "02/02/2024"
-    ],
-    [
-        "Spider-Man: Across the Spider-Verse (Part Two)",
-        "03/29/2024"
-    ],
-    [
-        "Captain America: New World Order",
-        "05/03/2024"
-    ],
-    [
-        "Thunderbolts",
-        "07/26/2024"
-    ],
-    [
-        "Blade",
-        "09/06/2024"
-    ],
-    [
-        "Deadpool 3",
-        "11/08/2024"
-    ],
-    [
-        "Fantastic Four",
-        "02/14/2025"
-    ],
-    [
-        "The Kang Dynasty",
-        "05/02/2025"
-    ],
-    [
-        "Secret Wars",
-        "05/01/2026"
-    ]
-]*/
-
-
-
-
-
-//   finds the closest marvel movie and its release date
 
 
 async function main()
 {
 
-    let json_ = await fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json").
+    let response = await fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json")
 
-    document.getElementById("test1").innerHTML = "1" + json_
+    let file = await response.json()
     
-    let marvel_list = json_["array"]
+    let marvel_list = file["array"]
 
-    document.getElementById("test2").innerHTML = "2" + marvel_list
+
 
     let closest_index = find_closest(marvel_list)
     let closest_date = marvel_list[closest_index][1]
@@ -125,7 +52,6 @@ function find_closest(marvel_list)
 
 
     }
-    // if all movies have passed returns a sorry message
     return []
 }
 
