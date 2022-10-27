@@ -1,18 +1,23 @@
 
 // create a global array to store date and time of all marvel names/release dates
 
-let json_ = fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json")
+    let json_ = fetch("https://damangledman.github.io/JavaScript-Fall-2022-1st-Block/week-6/data/marvel.json").
 
-document.getElementById("test1").innerHTML = "1 " + json_;
+    json_.then(function(result){
+        document.getElementById("test1").innerHTML = "1 " + result;
 
-let list = json_["array"]
+    })
+    // document.getElementById("test1").innerHTML = "1 " + json_;
 
-document.getElementById("test2").innerHTML = "2 " + list;
+    let list = json_["array"]
 
+    document.getElementById("test2").innerHTML = "2 " + list;
+
+/*
 let marvel_list = JSON.parse(stringed)
 
 document.getElementById("test3").innerHTML = "3 " + marvel_list;
-
+*/
 
 /*[
     [
